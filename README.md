@@ -1,1 +1,0 @@
-# bayaniat.github.io
