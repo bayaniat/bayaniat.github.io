@@ -4,19 +4,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/favicon.svg"/>
+
     <link rel="stylesheet" href="/assets/index.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --font-family-base: 'Playpen Sans Arabic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            color: var(--color-text-primary);
+            background-color: var(--color-surface);
+        }
+
+        @theme {
+            /* Base UI */
+            --color-bg: #F7F4EF;
+            --color-surface: #F1ECE6;
+            --color-border: #D8D1C7;
+
+            /* Text */
+            --color-text-primary: #2F2A26;
+            --color-text-secondary: #6B6259;
+
+            /* Palette */
+            --color-primary: #C96A4A;
+            --color-secondary: #4C6A92;
+            --color-third: #7A8C52;
+            --color-fourth: #D6A24C;
+            --color-fifth: #7A5678;
+            --color-sixth: #4E8C86;
+
+            /* Chart UI */
+            --color-gridline: #E6E1DA;
+            --color-axis: #BFB7AE;
+
+            /* Semantic */
+            --color-success: #6E9B5A;
+            --color-warning: #D6A24C;
+            --color-error: #C85C5C;
+            --color-info: #4E8C86;
+            --color-cancel: #6B6259;
+        }
+
+        .dark {
+            /* Base UI */
+            --color-bg: #1E1B18;
+            --color-surface: #26221E;
+            --color-border: #3B342D;
+
+            /* Text */
+            --color-text-primary: #F1EDE6;
+            --color-text-secondary: #B8AEA3;
+
+            /* Palette */
+            --color-primary: #E07A5F;
+            --color-secondary: #6F8FB8;
+            --color-third: #98A65D;
+            --color-fourth: #E6B566;
+            --color-fifth: #9C6E99;
+            --color-sixth: #6FAFA8;
+
+            /* Chart UI */
+            --color-gridline: #332E28;
+            --color-axis: #4A433C;
+
+            /* Semantic */
+            --color-success: #8FC77B;
+            --color-warning: #E6B566;
+            --color-error: #E57373;
+            --color-info: #6FAFA8;
+            --color-cancel: #B8AEA3;
+
+            color: var(--color-text-primary);
+            background-color: oklch(from var(--color-border) calc(l + 0.5) c h);
+        }
+
+        @font-face {
+            font-family: 'Playpen Sans Arabic';
+            src: url('./assets/fonts/PlaypenSansArabic-VariableFont_wght.ttf')
+                format('truetype');
+            font-weight: 100 800;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+    <style>
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .dark section {
+            color: var(--color-surface);
+        }
+    </style>
 
     <title>Bayaniat App</title>
 </head>
 
 <body>
-    <main>
-        <h1>Bayaniat App</h1>
+    
+    <main class="w-dvw h-[55vh] bg-bg bg-[radial-gradient(circle,var(--color-border)_2px,transparent_0px)] bg-[size:18px_18px]">
+        
+        <div class="flex justify-center items-center gap-4">
+            <img 
+                src="assets/images/app-icon.png" 
+                alt="app-icon"
+                width="248" height="248"
+                class="border-0 overflow-hidden rounded-4xl shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_4px_10px_rgba(0,0,0,0.5)]"
+            />
+            <div class="">
+                <h1 class="text-6xl text-shadow-xl">Bayaniat App</h1>
+                <br />
+                <h6 class="text-cancel text-xl"> Your preferred place to explore your data </h6>
+            </div>
+        </div>
+        
+    </main>    
+    
+    <section class="text-6xl flex justify-center mt-5">
+        Soon...
+    </section>
 
-        <p>Soon...</p>
-    </main>
+    <script>
+        function setThemeTo(newTheme) {
+            if(newTheme == 'dark') {
+                document.querySelector('body').classList.add('dark')
+            }
+            else {
+                document.querySelector('body').classList.remove('dark')
+            }
+        }
 
-    <script type="module">
+        function listenForThemeChanges() {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQuery.addEventListener('change', (event) => {
+                const newTheme = event.matches ? 'dark' : 'light';
+                setThemeTo(newTheme)
+            });
+        }
+
+        listenForThemeChanges();
+
+        const isCurrentModeDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if(isCurrentModeDark) {
+            setThemeTo('dark')
+        }
+
+    </script>
+
+    <script type="module" id="dev-mode">
         import.meta.hot?.on("locale-update", () => {
             window.location.reload();
         });
